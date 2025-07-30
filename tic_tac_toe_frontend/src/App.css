@@ -1,104 +1,140 @@
-/* CSS Variables for Theme Management */
+/* Root CSS Variables for Project Color Palette */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --primary: #2196F3;
+  --accent: #FF9800;
+  --secondary: #FFFFFF;
+  --text-main: #212121;
+  --ttt-board-bg: #fff;
+  --ttt-board-border: #eee;
+  --ttt-cell-hover: rgba(33,150,243,0.08); /* slightly blue tint */
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
-}
+/* Override/remove original dark+logo styles for clean tic tac toe look */
+[data-theme="dark"] {}
 
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+/* --- Tic Tac Toe Frontend Styles --- */
+.ttt-root {
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+  background: var(--secondary);
+  color: var(--text-main);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  font-family: 'Segoe UI', 'Arial',sans-serif;
+  padding-top: 36px;
+}
+
+.ttt-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -1px;
+  color: var(--primary);
+  margin-bottom: 18px;
+}
+
+.ttt-center {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  margin: 16px 0 14px 0;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  grid-template-rows: repeat(3, 56px);
+  gap: 0;
+  background: var(--ttt-board-bg);
+  border: 2.5px solid var(--primary);
+  border-radius: 18px;
+  box-shadow: 0 2px 10px 0 rgba(33,150,243,0.05);
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
+.ttt-square {
+  width: 56px;
+  height: 56px;
+  font-size: 2.1rem;
+  font-weight: 500;
+  background: var(--ttt-board-bg);
+  color: var(--primary);
   border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+  outline: none;
+  border-bottom: 1.5px solid var(--ttt-board-border);
+  border-right: 1.5px solid var(--ttt-board-border);
+  padding: 0;
+  margin: 0;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.18s, color 0.12s;
+  border-radius: 0;
+}
+.ttt-square:nth-child(3n) {
+  border-right: none;
+}
+.ttt-square:nth-child(n+7) {
+  border-bottom: none;
+}
+.ttt-square:focus {
+  outline: 2px solid var(--primary);
+}
+.ttt-square:hover {
+  background: var(--ttt-cell-hover);
+  /* Subtle feedback */
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.ttt-status {
+  margin-top: 20px;
+  margin-bottom: 12px;
+  font-size: 1.16rem;
+  text-align: center;
+  color: var(--primary);
+  font-weight: 500;
+  min-height: 24px;
+  letter-spacing: -0.2px;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.ttt-restart-btn {
+  appearance: none;
+  padding: 0.5em 2em;
+  background: var(--accent);
+  color: var(--secondary);
+  border: none;
+  border-radius: 9px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: box-shadow 0.15s, background 0.15s;
+  margin: 0 auto 0;
+  display: block;
+  cursor: pointer;
+  box-shadow: 0 1.5px 4px rgba(33, 150, 243, 0.10);
+  margin-top: 0.5em;
+}
+.ttt-restart-btn:hover,
+.ttt-restart-btn:focus {
+  background: #ffa733;
+  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.12);
+  color: #fff;
+  outline: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.ttt-footer {
+  margin-top: 48px;
+  font-size: 0.82rem;
+  text-align: center;
+  color: #aaa;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 600px) {
+  .ttt-board {
+    grid-template-columns: repeat(3, 40px);
+    grid-template-rows: repeat(3, 40px);
   }
-  to {
-    transform: rotate(360deg);
+  .ttt-square {
+    width: 40px;
+    height: 40px;
+    font-size: 1.36rem;
   }
-}
-
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+  .ttt-title { font-size: 1.5rem; }
 }
